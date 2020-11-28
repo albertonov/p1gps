@@ -23,7 +23,7 @@ services:
   order:
     image: albertonov/p1gps:order
     depends_on:
-      -"mongo"
+      - "mongo"
     deploy:
       replicas: 1
       resources: 
@@ -48,4 +48,4 @@ services:
         - "80:8080"
 volumes:
   db-data:
-  
+
