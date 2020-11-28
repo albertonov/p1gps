@@ -1,0 +1,51 @@
+version: "3"
+services:
+
+
+
+
+
+  mongo:
+    image: albertonov/p1gps:db
+    deploy:
+      replicas: 1
+      resources: 
+        limits:
+          cpus: "0.15"
+          memory: 200M
+        restart_policiy:
+          condition: on-failure
+      ports:
+        - "28017:28017"
+        - "27017:27017"
+      volumes:
+        - "db-data:/data/db"
+  order:
+    image: albertonov/p1gps:order
+    depends_on:
+      -"mongo"
+    deploy:
+      replicas: 1
+      resources: 
+        limits:
+          cpus: "0.3"
+          memory: 500M
+        restart_policiy:
+          condition: on-failure
+      ports:
+        - "8080:8080"
+  web:
+    image: albertonov/p1gps:web
+    deploy:
+      replicas: 1
+      resources: 
+        limits:
+          cpus: "0.25"
+          memory: 300M
+        restart_policiy:
+          condition: on-failure
+      ports:
+        - "80:8080"
+volumes:
+  db-data:
+  
